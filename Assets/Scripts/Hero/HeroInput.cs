@@ -2,28 +2,32 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class HeroInput : MonoBehaviour
+namespace Hero
 {
-    [SerializeField] private Hero _hero;
-
-    private HeroAction _heroAction;
-
-    private void Awake()
+    public class HeroInput : MonoBehaviour
     {
-        _heroAction = new HeroAction();
-        _heroAction.Hero.HorizontalMovement.performed += OnHorizontalMovement;
-        _heroAction.Hero.HorizontalMovement.canceled  += OnHorizontalMovement;
-    }
+        [SerializeField] private Hero _hero;
 
-    private void OnEnable()
-    {
-        _heroAction.Enable();
-    }
+        private HeroAction _heroAction;
 
-    private void OnHorizontalMovement(InputAction.CallbackContext ctx)
-    {
-        var direction = ctx.ReadValue<Vector2>();
+        private void Awake()
+        {
+            _heroAction = new HeroAction();
+            _heroAction.Hero.HorizontalMovement.performed += OnHorizontalMovement;
+            _heroAction.Hero.HorizontalMovement.canceled  += OnHorizontalMovement;
+        }
+
+        private void OnEnable()
+        {
+            _heroAction.Enable();
+        }
+
+        private void OnHorizontalMovement(InputAction.CallbackContext ctx)
+        {
+            var direction = ctx.ReadValue<Vector2>();
      
-        _hero.SetDirection(direction);
+            _hero.SetDirection(direction);
+        }
     }
 }
+
